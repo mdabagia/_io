@@ -32,7 +32,7 @@ export default class App extends Component {
                                 component={HotTab}
                                 title="HOT"
                                 navigationBarStyle={{backgroundColor:'#DA3298'}}
-                                titleStyle={{fontFamily:'Arial', fontSize:(28/GLOBAL.HEIGHT)*heightScreen, color:'white'}}
+                                titleStyle={style.titleStyle}
                                 titleWrapperStyle={{marginTop:(7/GLOBAL.HEIGHT)*heightScreen }}
                         />
                     </Scene>
@@ -42,7 +42,7 @@ export default class App extends Component {
                                 component={TopTab}
                                 title="TOP"
                                 navigationBarStyle={{backgroundColor:'#DA3298', height:(64/667)*heightScreen}}
-                                titleStyle={{fontFamily:'Arial', fontSize:(28/GLOBAL.HEIGHT)*heightScreen, color:'white'}}
+                                titleStyle={style.titleStyle}
                                 titleWrapperStyle={{marginTop:(7/GLOBAL.HEIGHT)* heightScreen}}
                         />
 
@@ -53,7 +53,7 @@ export default class App extends Component {
                             component={NewTab}
                               title="NEW"
                               navigationBarStyle={{backgroundColor:'#DA3298', height:(64/667)*heightScreen}}
-                              titleStyle={{fontFamily:'Arial', fontSize:(28/GLOBAL.HEIGHT)*heightScreen, color:'white'}}
+                              titleStyle={style.titleStyle}
                               titleWrapperStyle={{marginTop:(7/GLOBAL.HEIGHT)*heightScreen }}
                         />
 
@@ -83,5 +83,9 @@ var style = StyleSheet.create({
     },
 	sceneStyle:{
 		backgroundColor: '#E0E0E0'
-	}
+	},
+    titleStyle:{
+        fontSize:(28/GLOBAL.HEIGHT)*heightScreen, 
+        color:'white'
+    }
 });
