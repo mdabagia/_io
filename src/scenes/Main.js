@@ -9,6 +9,8 @@ var heightScreen=Dimensions.get('window').height;
 var widthScreen=Dimensions.get('window').width;
 var GLOBAL = require('./helper/Globals.js');
 var arrOfMessages = [];
+var range = 0;
+var impressionArr = [];
 
 class Main extends Component {
   constructor(props) {
@@ -31,27 +33,29 @@ class Main extends Component {
 
   }
 
- async getData(r) {
+ async getData() {
 
     var limit = 0;
-    var range = range + r;
     var returnArr = [];
     var post;
-    //.startAt(GLOBAL.numMessages - range).endAt(GLOBAL.numMessages - range + 50)
+
+
+//startAt(GLOBAL.numMessages - range - 10).endAt(GLOBAL.numMessages - range)
+    console.log(GLOBAL.numMessages);
     await firebase.database().ref('messages').orderByChild('Claps').on('value', function(snapshot) {
       arrOfMessages = snapshotToArray(snapshot);
       for (i = 0; i < arrOfMessages.length; i++) {
           //console.log(arrOfMessages);
-          var randomNum = (Math.random() * (9)) + 1;
+          var randomNum = Math.round((Math.random() * (9))) + 1;
           //last two will be never be touched due to array rewrite
         //   if (randomNum == this.arrOfMessages.length - 1) {
         //     getData(25);
         //   }
-          if (randomNum <= 4) {
+          if (randomNum <= 1) {
             post = arrOfMessages[i];
             returnArr = arrOfMessages;
             return;
-        }
+          }
       }
 
     });
@@ -146,12 +150,14 @@ switchMessage() {
     this.state.allMessages.shift()
     if (this.state.allMessages.length < 1){
         this.setState({isBottle:true, allMessages:[]})
+        this.range = this.range + 10;
     } else {
         //console.log('length', this.state.allMessages.length)
+        var counter = 0;
         this.outputs.title = this.state.allMessages[0]['Title'];
         this.outputs.text = this.state.allMessages[0]['Body'];
 
-        this.setState({randomer:Math.random()})
+        this.setState({randomer:Math.random()});
     }
 
 
@@ -159,8 +165,8 @@ switchMessage() {
 }
 
 onPressBottle() {
-
-    this.getData(25);
+    //arrOfMessages = [];
+    this.getData();
     if(this.state.allMessages >= 1){
         this.setState({allMessages:arrOfMessages, isBottle:false});
     }else {
