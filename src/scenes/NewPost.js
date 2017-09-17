@@ -125,10 +125,21 @@ class NewPost extends Component {
 
       var limit = 0;
       var range = 50;
-      var returnArr = [];
+      var arrOfMessages = [];
       var post;
+
+      if (returnArr.length > 1) {
+        for (j = 0; j < arrOfMessages.length; j++) {
+        var random = (Math.random() * 9) + 1;
+        if (randomNum == 1) {
+          post = arrOfMessages[i];
+          console.log(post);
+        }
+      }
+      }
+
       firebase.database().ref('messages').orderByChild('Claps').startAt(GLOBAL.numMessages - range).endAt(GLOBAL.numMessages).on('value', function(snapshot) {
-        var arrOfMessages = snapshotToArray(snapshot);
+        arrOfMessages = snapshotToArray(snapshot);
         for (i = 0; i < arrOfMessages.length; i++) {
             console.log(arrOfMessages);
             var randomNum = (Math.random() * (9)) + 1;

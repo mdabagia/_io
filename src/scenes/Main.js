@@ -21,17 +21,22 @@ class Main extends Component {
 
   }
 
-  getData() {
+  getData(r) {
 
     var limit = 0;
-    var range = 50;
+    var range = range + r;
     var returnArr = [];
     var post;
-    firebase.database().ref('messages').orderByChild('Claps').startAt(GLOBAL.numMessages - range).endAt(GLOBAL.numMessages).on('value', function(snapshot) {
+    //.startAt(GLOBAL.numMessages - range).endAt(GLOBAL.numMessages - range + 50)
+    firebase.database().ref('messages').orderByChild('Claps').on('value', function(snapshot) {
       var arrOfMessages = snapshotToArray(snapshot);
       for (i = 0; i < arrOfMessages.length; i++) {
           //console.log(arrOfMessages);
           var randomNum = (Math.random() * (9)) + 1;
+          //last two will be never be touched due to array rewrite
+          if (randomNum == arrOfMessages.length - 1) {
+            getData(50);
+          }
           if (randomNum <= 4) {
             post = arrOfMessages[i];
             console.log(post);
@@ -65,22 +70,8 @@ class Main extends Component {
           <StatusBar
             barStyle="light-content"
           />
-          <Text> Main Feed</Text>
-
-          <Button
-              style={{fontSize: 20, color: '#062039'}}
-              containerStyle={{marginTop:300/3.5,
-                              padding:10,
-                              height:45,
-                              overflow:'hidden',
-                              borderRadius:4,
-                              backgroundColor: '#cccccc', }}
-              styleDisabled={{color: 'red'}}
-              onPress={() => this.getData()}>
-              New Post!
-          </Button>
-            <TouchableWithoutFeedback onPress={this.onPressBottle}>
-                <Image source={require('../assets/images/bottle.png')} style={{width: (100/GLOBAL.WIDTH)*widthScreen, height: (100/GLOBAL.HEIGHT)*heightScreen, marginTop: heightScreen/2 - (100/GLOBAL.HEIGHT)*heightScreen}}/>   
+            <TouchableWithoutFeedback onPress={() => this.onPressBottle()}>
+                <Image source={require('../assets/images/bottle.png')} style={{width: (100/GLOBAL.WIDTH)*widthScreen, height: (100/GLOBAL.HEIGHT)*heightScreen, marginTop: heightScreen/2 - (100/GLOBAL.HEIGHT)*heightScreen}}/>
             </TouchableWithoutFeedback>
 
           </View>
@@ -88,7 +79,8 @@ class Main extends Component {
   }
 
 onPressBottle() {
-    console.warn('fuck')  
+    console.warn('fuck')
+    this.getData(50);
   }
 }
 
