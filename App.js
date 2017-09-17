@@ -2,17 +2,28 @@ import React, { Component} from 'react';
 import {Text, StyleSheet, StatusBar,Dimensions, AsyncStorage} from 'react-native';
 import { Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst } from 'react-native-router-flux'
 import { Font, AppLoading, Notifications , Constants, Permissions } from 'expo';
-import * as firebase from 'firebase';
+import * as firebase from "firebase";
+import Message from './Message.js'
 
 
 import Profile from './src/scenes/Profile.js'
 import NewPost from './src/scenes/NewPost.js'
 import Main from './src/scenes/Main.js'
+import Firebase from './src/scenes/helper/Firebase.js'
+
 
 var heightScreen=Dimensions.get('window').height;
 var widthScreen=Dimensions.get('window').width;
 var GLOBAL = require('./src/scenes/helper/Globals.js');
 
+/*const firebaseConfig = {
+   apiKey: "AIzaSyCN2gdKPbxFmhNgHrJOnP1s_DlOUoJgF38",
+   authDomain: "bottle-15e26.firebaseapp.com",
+   databaseURL: "https://bottle-15e26.firebaseio.com",
+   projectId: "bottle-15e26",
+   storageBucket: "bottle-15e26.appspot.com",
+   messagingSenderId: "451067004798"
+};
 /*const reducerCreate = params=>{
     const defaultReducer = Reducer(params);
     return (state, action)=>{
@@ -21,30 +32,30 @@ var GLOBAL = require('./src/scenes/helper/Globals.js');
     }
 };*/
 
-var itemsRef;
-
 export default class App extends Component {
 
     constructor(props){
       super(props)
+      Firebase.initialise();
+    }
+
+    componentWillMount() {
+
+
 
 
     }
 
-    componentWillMount() {
-      const firebaseConfig = {
-         apiKey: "AIzaSyCN2gdKPbxFmhNgHrJOnP1s_DlOUoJgF38",
-         authDomain: "bottle-15e26.firebaseapp.com",
-         databaseURL: "https://bottle-15e26.firebaseio.com",
-         projectId: "bottle-15e26",
-         storageBucket: "bottle-15e26.appspot.com",
-         messagingSenderId: "451067004798"
-      };
+    pushToDatabase(t, b) {
+     /* console.warn("Animal", t, b);
+      var message = new Message(t,b);
 
-      const firebaseApp = firebase.initializeApp(this.firebaseConfig);
-      const db = firebaseApp.database()
-      itemsRef = db.ref();
-
+      var postData = message.toDictionary()
+      const key = '/messages/' + message.messageNum
+      var updates = {}
+      updates[key] = postData
+      console.warn("Reached here");
+      return this.itemsRef.update(updates);*/
     }
 
     render() {
@@ -118,5 +129,3 @@ var style = StyleSheet.create({
         color:'white'
     }
 });
-
-export {itemsRef};
