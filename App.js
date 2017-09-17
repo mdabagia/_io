@@ -48,7 +48,7 @@ export default class App extends Component {
                 <Scene key="root" hideNavBar={false}>
                     <Scene key="home"
                         component={Main}
-                        title="Bottle"
+                        title="In a Bottle"
                         titleStyle={{color:'white'}}
                         navigationBarStyle={{backgroundColor:'#062039'}}
                         rightButtonImage={require('./src/assets/images/add-buttonW.png')}

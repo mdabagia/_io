@@ -235,7 +235,7 @@ class NewPost extends Component {
                                             backgroundColor: '#cccccc', }}
                             styleDisabled={{color: 'red'}}
                             onPress={() => this.submitData(this.inputs.title,this.inputs.text)}>
-                            Submit!
+                            Bottle It, Man!
                         </Button>
 
                     </View>
