@@ -79,12 +79,17 @@ class Main extends Component {
               onPress={() => this.getData()}>
               New Post!
           </Button>
+            <TouchableWithoutFeedback onPress={this.onPressBottle}>
+                <Image source={require('../assets/images/bottle.png')} style={{width: (100/GLOBAL.WIDTH)*widthScreen, height: (100/GLOBAL.HEIGHT)*heightScreen, marginTop: heightScreen/2 - (100/GLOBAL.HEIGHT)*heightScreen}}/>   
+            </TouchableWithoutFeedback>
 
           </View>
       );
   }
 
-
+onPressBottle() {
+    console.warn('fuck')  
+  }
 }
 
 
