@@ -28,6 +28,7 @@
     "react-native-card-view": "0.0.3",
     "react-native-forms": "^1.0.1",
     "react-native-material-textfield": "^0.10.0",
+    "react-native-md-textinput": "^2.0.4",
     "react-native-router-flux": "^4.0.0-beta.21"
   }
 }

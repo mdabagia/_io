@@ -11,7 +11,10 @@ import ReactNative, {StyleSheet,
                     TouchableWithoutFeedback} from 'react-native';
 import { Card, CardImage, CardTitle,CardContent, CardAction} from 'react-native-card-view';
 import TextField from 'react-native-md-textinput';
+import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button';
+
+import firebaseAccess from './helper/firebaseAccess.js';
 
 
 var heightScreen=Dimensions.get('window').height;
@@ -34,7 +37,9 @@ class NewPost extends Component {
     }
 
     submitData(){
-
+      new firebaseAccess().pushToDatabase(this.inputs.title, this.inputs.text);
+      console.warn("Die");
+      Actions.home();
 
     }
 
@@ -44,16 +49,19 @@ class NewPost extends Component {
 
         return (
             <View style={stylesView.mainContainer}>
+            <StatusBar
+              barStyle="light-content"
+            />
                 <Card styles={cardList} key={Math.random()}>
                 <ScrollView>
                     <View style={stylesView.cardContainer}>
                         <TextField
                             label={'Title'}
-                            highlightColor={'#00BCD4'}
+                            highlightColor={'#062039'}
                             onChangeText={(text) => {
                                 this.inputs.title =text;
                             }}
-                            value={''}
+
                             dense={true}
                             labelColor={'#000'}
                             textColor={'black'}
@@ -68,11 +76,11 @@ class NewPost extends Component {
                         />
                         <TextField
                             label={'Text'}
-                            highlightColor={'#00BCD4'}
+                            highlightColor={'#062039'}
                             onChangeText={(text) => {
                                 this.inputs.text = text;
                             }}
-                            value={''}
+
                             dense={true}
                             labelColor={'#000'}
                             textColor={'black'}
@@ -81,20 +89,26 @@ class NewPost extends Component {
                                 fontSize:28
                             }}
                             wrapperStyle={{
-                                height: cardHeight/3
+                                height: cardHeight/2
                             }}
                             style={{
                                 color:"black"
                             }}
-                            height={cardHeight/3}
+                            height={cardHeight/2}
                             multiline={true}
                             autoGrow={true}
+                            maxLength={300}
 
                         />
 
                         <Button
-                            style={{fontSize: 20, color: 'blue'}}
-                            containerStyle={{padding:10, height:45, overflow:'hidden', borderRadius:4, backgroundColor: '#D2D7D3', }}
+                            style={{fontSize: 20, color: '#062039'}}
+                            containerStyle={{marginTop:cardHeight/3.5,
+                                            padding:10,
+                                            height:45,
+                                            overflow:'hidden',
+                                            borderRadius:4,
+                                            backgroundColor: '#cccccc', }}
                             styleDisabled={{color: 'red'}}
                             onPress={() => this.submitData()}>
                             Submit!
@@ -113,16 +127,17 @@ var cardWidth = Dimensions.get('window').width - .13*widthScreen
 var cardHeight = Dimensions.get('window').height - .225*heightScreen
 var theMargin = Dimensions.get('window').height- cardHeight- .08*heightScreen
 const cardList   = {card: {alignItems:'flex-start',
-                            borderRadius:(15/GLOBAL.HEIGHT)*heightScreen,
+                            borderRadius:(5/GLOBAL.HEIGHT)*heightScreen,
                             marginTop:(23/GLOBAL.HEIGHT)*heightScreen,
                             marginBottom:theMargin,
-                            width:cardWidth}};
+                            width:cardWidth,
+                          backgroundColor:'#f2f1ef'}};
 
 const stylesView = StyleSheet.create({
   mainContainer: {
     alignItems:'center',
     height: Dimensions.get('window').height,
-    backgroundColor:'grey'
+    backgroundColor:'#cccccc'
   },
   cardContainer: {
     height: cardHeight,

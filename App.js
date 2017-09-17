@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import {Text, StyleSheet, StatusBar,Dimensions, AsyncStorage} from 'react-native';
 import { Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst } from 'react-native-router-flux'
 import { Font, AppLoading, Notifications , Constants, Permissions } from 'expo';
+import * as firebase from 'firebase';
 
 
 import Profile from './src/scenes/Profile.js'
@@ -20,8 +21,31 @@ var GLOBAL = require('./src/scenes/helper/Globals.js');
     }
 };*/
 
+var itemsRef;
+
 export default class App extends Component {
 
+    constructor(props){
+      super(props)
+
+
+    }
+
+    componentWillMount() {
+      const firebaseConfig = {
+         apiKey: "AIzaSyCN2gdKPbxFmhNgHrJOnP1s_DlOUoJgF38",
+         authDomain: "bottle-15e26.firebaseapp.com",
+         databaseURL: "https://bottle-15e26.firebaseio.com",
+         projectId: "bottle-15e26",
+         storageBucket: "bottle-15e26.appspot.com",
+         messagingSenderId: "451067004798"
+      };
+
+      const firebaseApp = firebase.initializeApp(this.firebaseConfig);
+      const db = firebaseApp.database()
+      itemsRef = db.ref();
+
+    }
 
     render() {
         return (
@@ -30,10 +54,13 @@ export default class App extends Component {
                     <Scene key="home"
                         component={Main}
                         title="Bottle"
-                        navigationBarStyle={{backgroundColor:'#D2D7D3'}}
-                        rightButtonImage={require('./src/assets/images/add-button.png')}
+                        titleStyle={{color:'white'}}
+                        navigationBarStyle={{backgroundColor:'#062039'}}
+                        rightButtonImage={require('./src/assets/images/add-buttonW.png')}
+                        rightButtonStyle={{marginRight:(-120/GLOBAL.WIDTH)*widthScreen}}
                         onRight={() => Actions.modalNewPost()}
-                        leftButtonImage={require('./src/assets/images/user.png')}
+                        leftButtonImage={require('./src/assets/images/userW.png')}
+                        leftButtonStyle={{marginLeft:(-120/GLOBAL.WIDTH)*widthScreen}}
                         onLeft={() => Actions.modalProfile()}
 
                     />
@@ -42,9 +69,9 @@ export default class App extends Component {
                         title='New Post'
                         component={NewPost}
                         direction='horizontal'
-                        navigationBarStyle={{backgroundColor:'#D2D7D3'}}
-                        titleStyle={{color:'black'}}
-                        backButtonImage={require('./src/assets/images/return.png')}
+                        navigationBarStyle={{backgroundColor:'#062039'}}
+                        titleStyle={{color:'white'}}
+                        backButtonImage={require('./src/assets/images/returnW.png')}
                         leftButtonIconStyle={{width:28 , height:28 }}
                         onBack={() => Actions.home()}
                     >
@@ -54,9 +81,9 @@ export default class App extends Component {
                         title='Profile'
                         component={Profile}
                         direction='horizontal'
-                        navigationBarStyle={{backgroundColor:'#D2D7D3'}}
-                        titleStyle={{color:'black'}}
-                        backButtonImage={require('./src/assets/images/return.png')}
+                        navigationBarStyle={{backgroundColor:'#062039'}}
+                        titleStyle={{color:'white'}}
+                        backButtonImage={require('./src/assets/images/returnW.png')}
                         leftButtonIconStyle={{width:28 , height:28 }}
                         onBack={() => Actions.home()}
                     >
@@ -70,7 +97,7 @@ export default class App extends Component {
 
 const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
   const style = {
-      backgroundColor: '#E0E0E0'
+      backgroundColor: '#ececec'
   };
   return style;
 };
@@ -84,10 +111,12 @@ var style = StyleSheet.create({
         opacity        : 1
     },
 	sceneStyle:{
-		backgroundColor: '#E0E0E0'
+		backgroundColor: '#ececec'
 	},
     titleStyle:{
         fontSize:(28/GLOBAL.HEIGHT)*heightScreen,
         color:'white'
     }
 });
+
+export {itemsRef};

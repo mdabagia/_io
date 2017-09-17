@@ -23,6 +23,9 @@ class Profile extends Component {
     render () {
         return (
             <View style={stylesView.mainContainer}>
+            <StatusBar
+              barStyle="light-content"
+            />
                 <Text> Profile</Text>
             </View>
     );
@@ -33,7 +36,8 @@ class Profile extends Component {
 
 const stylesView = StyleSheet.create({
   mainContainer: {
-    alignItems:'center'
+    alignItems:'center',
+    backgroundColor:'#ececec'
   },
 });
 

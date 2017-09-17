@@ -24,6 +24,9 @@ class Main extends Component {
 
       return (
           <View style={stylesView.mainContainer}>
+          <StatusBar
+            barStyle="light-content"
+          />
           <Text> Main Feed</Text>
           </View>
       );
@@ -36,6 +39,7 @@ const stylesView = StyleSheet.create({
   mainContainer: {
     alignItems:'center',
     flex: 1,
+    backgroundColor:'#ececec'
   },
 });
 

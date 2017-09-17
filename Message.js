@@ -1,92 +1,59 @@
-class Message {
-  private String title;
-  private String body;
-  private Number claps;
-  public static numMessages;
-  public Number messageNum;
-
-
-/**
+import GLOBAL from './src/scenes/helper/Globals.js';
+export default class Message {
+  /**
   Messsage Constructor
   param t: Title text
   param b: Body text
-**/
-  function message(String t, String b) {
-    title = t;
-    body = b;
-    claps = 1;
-    numMessages++;
-    messageNum = numMessages;
+  **/
+  constructor(t, b) {
+    this.title = t;
+    this.body = b;
+    this.claps = 1;
+    GLOBAL.numMessages++;
+    console.warn(Message.numMessages)
+    this.messageNum = GLOBAL.numMessages;
 
   }
 
-/**
+  /**
   Messsage Constructor
   param t: Title text
-**/
-  function message(String t) {
-    title = t;
-    claps = 1;
-    numMessages++;
-    messageNum = numMessages;
+  **/
+  message(t) {
+    this.title = t;
+    this.claps = 1;
+    Message.numMessages += 1;
+    this.messageNum = this.numMessages;
   }
 
-  function String getTitle() {
-    return title;
+  getTitle() {
+    return this.title;
   }
 
-  function String getBody() {
-    return body;
+  getBody() {
+    return this.body;
   }
 
-  function setTitle(String T) {
-    title = T;
+  setTitle(T) {
+    this.title = T;
 
   }
 
-  public void setBody(String B) {
-    body = b;
+  setBody(B) {
+    this.body = B;
   }
 
-  public void updateClaps() {
-    claps++;
+  updateClaps() {
+    this.claps++;
   }
 
-  public toDictionary() {
+  toDictionary() {
     var message = {
-      Title: title;
-      Body: body;
-      Claps: claps
+      Title: this.title,
+      Body: this.body,
+      Claps: this.claps
     }
     return message;
   }
 
-  function pushToDatabase(t, b) {
-
-
-    var message = new Message(t,b);
-    var updates {};
-    var postData = message.toDictionary()
-    updates['/messages/ + messageNum'] = postData;
-
-    return itemsRef.update(updates);
-  }
-
 }
-
-
-
-addItem() {
-  onPress: text => {
-    //this.itemsRef.push({title: title})
-    pushToDatabase(this.inputs.title, this.inputs.text);
-  }
-}
-
-
-
-
-// Initialize Firebase
-
-this.inputs.text
-this.inputs.title
