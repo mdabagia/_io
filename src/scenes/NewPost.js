@@ -13,13 +13,12 @@ import { Card, CardImage, CardTitle,CardContent, CardAction} from 'react-native-
 import TextField from 'react-native-md-textinput';
 import { Actions } from 'react-native-router-flux'
 import Button from 'react-native-button';
-
-import firebaseAccess from './helper/firebaseAccess.js';
-
+import * as firebase from "firebase";
 
 var heightScreen=Dimensions.get('window').height;
 var widthScreen=Dimensions.get('window').width;
 var GLOBAL = require('./helper/Globals.js');
+import Message from "../../Message.js";
 
 class NewPost extends Component {
     constructor(props: Object) {
@@ -36,11 +35,17 @@ class NewPost extends Component {
 
     }
 
-    submitData(){
-      new firebaseAccess().pushToDatabase(this.inputs.title, this.inputs.text);
-      console.warn("Die");
-      Actions.home();
+    submitData(t, b){
+        //new firebaseAccess().pushToDatabase(this.inputs.title, this.inputs.text);
+        var message = new Message(t,b);
 
+        var postData = message.toDictionary()
+        const key = '/messages/' + message.messageNum
+        var updates = {}
+        updates[key] = postData
+        firebase.database().ref().update(updates);
+
+        Actions.home();
     }
 
     render () {
@@ -110,7 +115,7 @@ class NewPost extends Component {
                                             borderRadius:4,
                                             backgroundColor: '#cccccc', }}
                             styleDisabled={{color: 'red'}}
-                            onPress={() => this.submitData()}>
+                            onPress={() => this.submitData(this.inputs.title,this.inputs.text)}>
                             Submit!
                         </Button>
 

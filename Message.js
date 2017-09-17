@@ -10,7 +10,7 @@ export default class Message {
     this.body = b;
     this.claps = 1;
     GLOBAL.numMessages++;
-    console.warn(Message.numMessages)
+    //console.warn(Message.numMessages)
     this.messageNum = GLOBAL.numMessages;
 
   }
