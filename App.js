@@ -4,65 +4,67 @@ import { Scene, Router, TabBar, Modal, Schema, Actions, Reducer, ActionConst } f
 import { Font, AppLoading, Notifications , Constants, Permissions } from 'expo';
 
 
-import TopTab from './src/scenes/TopTab.js'
-import HotTab from './src/scenes/HotTab.js'
-import NewTab from './src/scenes/NewTab.js'
+import Profile from './src/scenes/Profile.js'
+import NewPost from './src/scenes/NewPost.js'
+import Main from './src/scenes/Main.js'
 
 var heightScreen=Dimensions.get('window').height;
 var widthScreen=Dimensions.get('window').width;
 var GLOBAL = require('./src/scenes/helper/Globals.js');
 
-const reducerCreate = params=>{
+/*const reducerCreate = params=>{
     const defaultReducer = Reducer(params);
     return (state, action)=>{
         console.log("ACTION:", action);
         return defaultReducer(state, action);
     }
-};
+};*/
 
 export default class App extends Component {
+
+
     render() {
-    return (
-        <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
-            <Scene key="root" hideNavBar={true}>
-                <Scene key ='tabbar' tabs tabBarStyle={style.tabBarStyle}>
-                {/*iconTitle='list' iconName={'list'} icon={TabIcon}*/}
-                    <Scene key='hotTab' title='Hot' >
-                        <Scene  key="hot"
-                                component={HotTab}
-                                title="HOT"
-                                navigationBarStyle={{backgroundColor:'#DA3298'}}
-                                titleStyle={style.titleStyle}
-                                titleWrapperStyle={{marginTop:(7/GLOBAL.HEIGHT)*heightScreen }}
-                        />
+        return (
+            <Router  getSceneStyle={getSceneStyle}>
+                <Scene key="root" hideNavBar={false}>
+                    <Scene key="home"
+                        component={Main}
+                        title="Bottle"
+                        navigationBarStyle={{backgroundColor:'#D2D7D3'}}
+                        rightButtonImage={require('./src/assets/images/add-button.png')}
+                        onRight={() => Actions.modalNewPost()}
+                        leftButtonImage={require('./src/assets/images/user.png')}
+                        onLeft={() => Actions.modalProfile()}
+
+                    />
+
+                    <Scene key='modalNewPost'
+                        title='New Post'
+                        component={NewPost}
+                        direction='horizontal'
+                        navigationBarStyle={{backgroundColor:'#D2D7D3'}}
+                        titleStyle={{color:'black'}}
+                        backButtonImage={require('./src/assets/images/return.png')}
+                        leftButtonIconStyle={{width:28 , height:28 }}
+                        onBack={() => Actions.home()}
+                    >
                     </Scene>
 
-                    <Scene key='topTab' title='Top' >
-                        <Scene  key="top"
-                                component={TopTab}
-                                title="TOP"
-                                navigationBarStyle={{backgroundColor:'#DA3298', height:(64/667)*heightScreen}}
-                                titleStyle={style.titleStyle}
-                                titleWrapperStyle={{marginTop:(7/GLOBAL.HEIGHT)* heightScreen}}
-                        />
-
-                    </Scene>
-
-                    <Scene key = 'newTab' title='New' >
-                        <Scene key="newTab"
-                            component={NewTab}
-                              title="NEW"
-                              navigationBarStyle={{backgroundColor:'#DA3298', height:(64/667)*heightScreen}}
-                              titleStyle={style.titleStyle}
-                              titleWrapperStyle={{marginTop:(7/GLOBAL.HEIGHT)*heightScreen }}
-                        />
-
+                    <Scene key='modalProfile'
+                        title='Profile'
+                        component={Profile}
+                        direction='horizontal'
+                        navigationBarStyle={{backgroundColor:'#D2D7D3'}}
+                        titleStyle={{color:'black'}}
+                        backButtonImage={require('./src/assets/images/return.png')}
+                        leftButtonIconStyle={{width:28 , height:28 }}
+                        onBack={() => Actions.home()}
+                    >
                     </Scene>
 
                 </Scene>
-            </Scene>
-        </Router>
-    );
+            </Router>
+        );
   }
 }
 
@@ -85,7 +87,7 @@ var style = StyleSheet.create({
 		backgroundColor: '#E0E0E0'
 	},
     titleStyle:{
-        fontSize:(28/GLOBAL.HEIGHT)*heightScreen, 
+        fontSize:(28/GLOBAL.HEIGHT)*heightScreen,
         color:'white'
     }
 });
