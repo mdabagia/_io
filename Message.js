@@ -9,7 +9,7 @@ export default class Message {
     this.title = t;
     this.body = b;
     this.claps = 1;
-    GLOBAL.numMessages++;
+    GLOBAL.numMessages = GLOBAL.numMessages + 1;
     //console.warn(Message.numMessages)
     this.messageNum = GLOBAL.numMessages;
 
@@ -22,7 +22,7 @@ export default class Message {
   message(t) {
     this.title = t;
     this.claps = 1;
-    Message.numMessages += 1;
+    GLOBAL.numMessages = GLOBAL.numMessages + 1;
     this.messageNum = this.numMessages;
   }
 

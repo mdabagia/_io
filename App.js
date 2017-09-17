@@ -40,23 +40,7 @@ export default class App extends Component {
     }
 
     componentWillMount() {
-
-
-
-
-    }
-
-    pushToDatabase(t, b) {
-     /* console.warn("Animal", t, b);
-      var message = new Message(t,b);
-
-      var postData = message.toDictionary()
-      const key = '/messages/' + message.messageNum
-      var updates = {}
-      updates[key] = postData
-      console.warn("Reached here");
-      return this.itemsRef.update(updates);*/
-    }
+      }
 
     render() {
         return (

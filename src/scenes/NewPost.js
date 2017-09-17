@@ -45,8 +45,116 @@ class NewPost extends Component {
         updates[key] = postData
         firebase.database().ref().update(updates);
 
+        //firebase.database().ref.orderByChild("Claps");
+        // firebase.database().ref('messages').orderByChild('Claps').limitToLast(1).on("child_added", function(snapshot) {
+        //   console.log(snapshot.key);
+        // });
+
+        // var limit = 0;
+        // var range = 50;
+        // var returnArr = [];
+        // var post;
+        // firebase.database().ref('messages').orderByChild('Claps').startAt(GLOBAL.numMessages - range).endAt(GLOBAL.numMessages).on('value', function(snapshot) {
+        //   var arrOfMessages = snapshotToArray(snapshot);
+        //   for (i = 0; i < arrOfMessages.length; i++) {
+        //       console.log(arrOfMessages);
+        //       var randomNum = (Math.random() * (9)) + 1;
+        //       if (randomNum == 1) {
+        //         post = arrOfMessages[i];
+        //         console.log(post);
+        //     }
+        //   }
+
+          //console.log(arrOfMessages)
+        // queryData.on('child_added', function(snapshot) {
+        //   snapshot.forEach(function(childSnapshot) {
+        //     var item = childSnapshot.val();
+        //     item.key = childSnapshot.key;
+        //
+        //     returnArr.push(item);
+        //   });
+        //
+        //   for (thing in returnArr) {
+        //     console.log(thing.key);
+        //   }
+        // });
+
+
+      //Returns Array of Objects Requested
+
+      function snapshotToArray(snapshot) {
+          var returnArr = [];
+
+          snapshot.forEach(function(childSnapshot) {
+          var item = childSnapshot.val();
+          item.key = childSnapshot.key;
+
+          returnArr.push(item);
+        });
+
+        return returnArr;
+        };
+
+        // queryData.on('child_added', function(snapshot) {
+        //   alert(snapshot.val());
+        // });
+
+
+        //
+        // for (item in queryData) {
+        //   console.log(item);
+        // }
+
+
+        // for (i = 0; i < 5; i++) {
+        //   var randomNum = (Math.random() * (9)) + 1;
+        //   if (randomNum == 1) {
+        //     firebase.database().ref('messages').orderByChild('Claps').startAt(GLOBAL.numMessages - range).endAt(GLOBAL.numMessages).on("child_added", (snapshot) => {
+        //        console.log(snapshot.val());});
+        //      }
+        //    }
+        // console.warn(GLOBAL.numMessages);
+
+
         Actions.home();
     }
+
+
+
+    getData() {
+
+      var limit = 0;
+      var range = 50;
+      var returnArr = [];
+      var post;
+      firebase.database().ref('messages').orderByChild('Claps').startAt(GLOBAL.numMessages - range).endAt(GLOBAL.numMessages).on('value', function(snapshot) {
+        var arrOfMessages = snapshotToArray(snapshot);
+        for (i = 0; i < arrOfMessages.length; i++) {
+            console.log(arrOfMessages);
+            var randomNum = (Math.random() * (9)) + 1;
+            if (randomNum == 1) {
+              post = arrOfMessages[i];
+              console.log(post);
+          }
+        }
+
+    });
+
+    function snapshotToArray(snapshot) {
+        var returnArr = [];
+
+        snapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        item.key = childSnapshot.key;
+
+        returnArr.push(item);
+      });
+
+      return returnArr;
+      };
+
+
+  }
 
     render () {
         //let  text = this.state.text;
