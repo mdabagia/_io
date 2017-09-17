@@ -4,6 +4,7 @@ import ReactNative, {StyleSheet, Text, View, Image, ScrollView, Dimensions, Stat
 
 var heightScreen=Dimensions.get('window').height;
 var widthScreen=Dimensions.get('window').width;
+var GLOBAL = require('./helper/Globals.js');
 
 class Main extends Component {
   constructor(props) {
@@ -21,17 +22,21 @@ class Main extends Component {
   }
 
   render () {
-
       return (
           <View style={stylesView.mainContainer}>
           <StatusBar
             barStyle="light-content"
           />
-          <Text> Main Feed</Text>
-          </View>
+           <TouchableWithoutFeedback onPress={this.onPressBottle}>
+                <Image source={require('../assets/images/bottle.png')} style={{width: (100/GLOBAL.WIDTH)*widthScreen, height: (100/GLOBAL.HEIGHT)*heightScreen, marginTop: heightScreen/2 - (100/GLOBAL.HEIGHT)*heightScreen}}/>   
+            </TouchableWithoutFeedback>
+            
+            </View>
       );
   }
-
+  onPressBottle() {
+    console.warn('fuck')  
+  }
 }
 
 
